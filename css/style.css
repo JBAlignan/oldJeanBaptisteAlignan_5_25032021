@@ -1,0 +1,39 @@
+#align-container{
+    margin: auto;
+}
+
+img{
+    width: 19em;
+}
+
+#titleCardDisplay{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1em;
+}
+
+.card-title{
+    margin: 0;
+}
+
+h1{
+    font-size: 1em;
+}
+
+#basketTitle{
+    display: flex;
+    justify-content: space-around;
+    max-width: 19em;
+    margin: auto;
+}
+
+div#basketTitle ~ button{
+    display: flex;
+    background-color: red;
+    margin: auto;
+}
+
+article.col-lg-10 {
+    margin: auto;
+}
