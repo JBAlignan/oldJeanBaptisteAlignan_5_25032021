@@ -33,7 +33,7 @@ const myContainer = document.getElementById("myContainer");
 
       //Intégration des cards dans le fichier index.html via la fonction innerHTML; forEach lis cette ligne de code pour chaque exécution de la fonction function(index); on a un nombre de card dans index.html égal au nombre de produits présent dans l'API.
           document.getElementById("myContainer").innerHTML = genericCard;
-  })  //Sortie de la fonction forEach
+  })  //Sortie de then.
   
   .catch(error => console.log('error', error));
 

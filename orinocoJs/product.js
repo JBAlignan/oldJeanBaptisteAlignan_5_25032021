@@ -44,38 +44,26 @@ function teddyDisplay (){
 
             <label for="color-select" id="color-select">Couleur</label>
               <select name = "colorSelection" id = "colorSelection">
+              
                 
               </select>
           </div>
         </section>
       `;
 
-
-      
-
-      data.array.forEach(function (color){
-
-        let colorsOption = "";
-        colorsOption += 
-        `
-        <option>${color.colors}</option>
-        `;
-
-        let selectId = document.getElementById("colorSelection");
-        selectId.appendChild(colorsOption);
-        
-
-        
-      });
-
-
-      
-
       myContainer.innerHTML = productCard;
       
+      data.colors.forEach(function (choice) {
 
-    })
+        let x = document.getElementById("colorSelection");
+        let option = document.createElement("option");
+        option.text = `${choice}`;
+        x.add(option);
+
+          });
+      
+      })
 
     .catch(error => console.log('error', error));
-  }
+  };
 
