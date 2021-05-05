@@ -1,5 +1,3 @@
-
-
 // const queryString_url_id = window.location.search;
 // console.log(queryString_url_id);
 
@@ -19,7 +17,7 @@
 
 
 
-const searchUrl = new URL (window.location.href); //Obtention de l'URL du produit consulté.
+const searchUrl = new URL(window.location.href); //Obtention de l'URL du produit consulté.
 const searchId = searchUrl.searchParams.get("id"); //Obtention de l'id.
 
 
@@ -28,42 +26,111 @@ const myContainer = document.getElementById("myContainer");
 
 
 
-function teddyDisplay (){
+function teddyDisplay() {
   fetch(`http://localhost:3000/api/teddies/${searchId}`)
     .then(response => response.json())
     .then((data) => {
-      
-      let productCard = "";
-      productCard = 
-      `
-        <section class="card mb-3">
-          <img src="${data.imageUrl}" class="card-img-top" alt="Photographie du produit">
-          <div class="card-body">
-            <h5 class="card-title">${data.description}</h5>
-            <p class="card-text">${data.description}</p>
 
-            <label for="color-select" id="color-select">Couleur</label>
-              <select name = "colorSelection" id = "colorSelection">
-              
-                
-              </select>
+      console.log(data);
+
+      let productCard = "";
+      productCard =
+        `
+        <section class="card mb-3">
+          <img src="${data.imageUrl}" id="img" class="card-img-top" alt="Photographie du produit">
+          <div class="card-body">
+            <h5 class="card-title" id="name" value="${data.name}">${data.name}</h5>
+              <p class="card-text">${data.description}</p>
+              <p class="card-text">Prix: ${data.price}</p>
+              <label for="color-select" id="color-select">Couleur</label>
+                <select name = "colorSelection" id = "colorSelection">
+                </select>
+              <button class="btn btn-primary" type="submit" id="command">Ajouter</button>
           </div>
         </section>
       `;
 
       myContainer.innerHTML = productCard;
-      
+
+      //Fonction créant les options de couleurs selon les données envoyées par l'API
+
       data.colors.forEach(function (choice) {
 
-        let x = document.getElementById("colorSelection");
+        let optionValue = document.getElementById("colorSelection");
         let option = document.createElement("option");
-        option.text = `${choice}`;
-        x.add(option);
+        option.textContent = `${choice}`;
+        option.setAttribute("value", `${choice}`)
+        optionValue.add(option);
 
-          });
+
+      });
+
+
+
       
-      })
+// function addCartToBasket(){
+
+//       let panier = 
+
+//       localStorage.setItem("name", `${data.name}`);
+//       let name = localStorage.getItem("name");
+//       localStorage.setItem("image", `${data.imageUrl}`);
+//       let image = localStorage.getItem("image");
+//       localStorage.setItem("price", `${data.price}`);
+//       let price = localStorage.getItem("price");
+//       localStorage.setItem("id", `${data._id}`);
+//       let id = localStorage.getItem("id");
+//       console.log(typeof name);
+//       console.log(price);
+//       console.log(id);
+//     }
+
+class Store {
+
+  //Vérification du contenu du localStorage et retourne le résultat
+  static getTeddy() {
+    let teddies;
+    if (localStorage.getItem('teddies') === null){
+      teddies = [];
+    }
+    else {
+      teddies = JSON.parse(localStorage.getItem('teddies'));
+    }
+
+    return teddies;
+  };
+
+  //Ajout d'un objet au tableau; stringify pour le stockage dans le localStorage; enregistre l'objet modifié dans le localStorage
+  static addTeddy(teddy) {
+    const teddies = Store.getTeddy();
+    teddies.push(teddy);
+    localStorage.setItem("teddies", JSON.stringify(teddies));
+  };
+
+  //Parcours du tableau d'objet; comparaison des id; si match, suppression de la ligne matché; enregistre l'objet modifié dans le localStorage
+  static removeTeddy (id) {
+    const teddies = Store.getTeddy();
+    teddies.forEach(function (teddy, index){
+     if(teddy._id === id){
+       teddies.splice(index, 1);
+     };
+     localStorage.setItem("teddies", JSON.stringify(teddies));
+
+    });
+  }
+
+};
+
+let addCart = document.getElementById("command");
+addCart.addEventListener("click", Store.addTeddy(data));
+
+
+  
+    
+    })
+    
 
     .catch(error => console.log('error', error));
-  };
+};
+
 
