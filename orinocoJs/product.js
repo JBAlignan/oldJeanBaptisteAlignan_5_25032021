@@ -46,6 +46,7 @@ function teddyDisplay() {
                 <select name = "colorSelection" id = "colorSelection">
                 </select>
               <button class="btn btn-primary" type="submit" id="command">Ajouter</button>
+              <a href="basket.html"><button class="btn btn-primary" type="submit">Aller au panier</button></a>
           </div>
         </section>
       `;
@@ -53,7 +54,6 @@ function teddyDisplay() {
       myContainer.innerHTML = productCard;
 
       //Fonction créant les options de couleurs selon les données envoyées par l'API
-
       data.colors.forEach(function (choice) {
 
         let optionValue = document.getElementById("colorSelection");
@@ -62,32 +62,15 @@ function teddyDisplay() {
         option.setAttribute("value", `${choice}`)
         optionValue.add(option);
 
-
       });
 
 
 
-      
-// function addCartToBasket(){
 
-//       let panier = 
-
-//       localStorage.setItem("name", `${data.name}`);
-//       let name = localStorage.getItem("name");
-//       localStorage.setItem("image", `${data.imageUrl}`);
-//       let image = localStorage.getItem("image");
-//       localStorage.setItem("price", `${data.price}`);
-//       let price = localStorage.getItem("price");
-//       localStorage.setItem("id", `${data._id}`);
-//       let id = localStorage.getItem("id");
-//       console.log(typeof name);
-//       console.log(price);
-//       console.log(id);
-//     }
-
+//class Store, qui manipule le localStorage.
 class Store {
 
-  //Vérification du contenu du localStorage et retourne le résultat
+  //Vérification du contenu du localStorage et retourne le résultat.
   static getTeddy() {
     let teddies;
     if (localStorage.getItem('teddies') === null){
@@ -100,14 +83,14 @@ class Store {
     return teddies;
   };
 
-  //Ajout d'un objet au tableau; stringify pour le stockage dans le localStorage; enregistre l'objet modifié dans le localStorage
+  //Ajout d'un objet au tableau; stringify pour le stockage dans le localStorage; enregistre l'objet modifié dans le localStorage.
   static addTeddy(teddy) {
     const teddies = Store.getTeddy();
     teddies.push(teddy);
     localStorage.setItem("teddies", JSON.stringify(teddies));
   };
 
-  //Parcours du tableau d'objet; comparaison des id; si match, suppression de la ligne matché; enregistre l'objet modifié dans le localStorage
+  //Parcours du tableau d'objet; comparaison des id; si match, suppression de la ligne matché; enregistre l'objet modifié dans le localStorage.
   static removeTeddy (id) {
     const teddies = Store.getTeddy();
     teddies.forEach(function (teddy, index){
@@ -118,16 +101,24 @@ class Store {
 
     });
   }
-
 };
 
-let addCart = document.getElementById("command");
-addCart.addEventListener("click", Store.addTeddy(data));
+    //Bouton d'ajout de produit.
 
+    let addCart = document.getElementById("command");
+    addCart.addEventListener("click", function (){
 
-  
+      addCart.style.backgroundColor = "red";
+
+      // const name = document.getElementById('name').value;
+      
+      Store.addTeddy(data);
+      
     
-    })
+    });
+
+
+})
     
 
     .catch(error => console.log('error', error));
