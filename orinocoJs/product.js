@@ -61,61 +61,83 @@ function teddyDisplay() {
         option.textContent = `${choice}`;
         option.setAttribute("value", `${choice}`)
         optionValue.add(option);
-
       });
 
 
 
 
-//class Store, qui manipule le localStorage.
-class Store {
+// //class Store, qui manipule le localStorage.
+// class Store {
 
-  //Vérification du contenu du localStorage et retourne le résultat.
-  static getTeddy() {
-    let teddies;
-    if (localStorage.getItem('teddies') === null){
-      teddies = [];
-    }
-    else {
-      teddies = JSON.parse(localStorage.getItem('teddies'));
-    }
+//   //Vérification du contenu du localStorage et retourne le résultat.
+//   static getTeddy() {
+//     let teddies;
+//     if (localStorage.getItem("basketShop") === null){
+//       teddies = [];
+//     }
+//     else {
+//       teddies = JSON.parse(localStorage.getItem("basketShop"));
+//     }
 
-    return teddies;
-  };
+//     return teddies;
+//   };
 
-  //Ajout d'un objet au tableau; stringify pour le stockage dans le localStorage; enregistre l'objet modifié dans le localStorage.
-  static addTeddy(teddy) {
-    const teddies = Store.getTeddy();
-    teddies.push(teddy);
-    localStorage.setItem("teddies", JSON.stringify(teddies));
-  };
+//   //Ajout d'un objet au tableau; stringify pour le stockage dans le localStorage; enregistre l'objet modifié dans le localStorage.
+//   static addTeddy(teddy) {
+//     const teddies = Store.getTeddy();
+//     teddies.push(teddy);
+//     localStorage.setItem("basketShop", JSON.stringify(teddies));
+//   };
 
-  //Parcours du tableau d'objet; comparaison des id; si match, suppression de la ligne matché; enregistre l'objet modifié dans le localStorage.
-  static removeTeddy (id) {
-    const teddies = Store.getTeddy();
-    teddies.forEach(function (teddy, index){
-     if(teddy._id === id){
-       teddies.splice(index, 1);
-     };
-     localStorage.setItem("teddies", JSON.stringify(teddies));
+//   //Parcours du tableau d'objet; comparaison des id; si match, suppression de la ligne matché; enregistre l'objet modifié dans le localStorage.
+//   static removeTeddy (id) {
+//     const teddies = Store.getTeddy();
+//     teddies.forEach(function (teddy, index){
+//      if(teddy._id === id){
+//        teddies.splice(index, 1);
+//      };
+//      localStorage.setItem("basketShop", JSON.stringify(teddies));
 
-    });
-  }
-};
+//     });
+//   }
+// };
 
-    //Bouton d'ajout de produit.
-
-    let addCart = document.getElementById("command");
-    addCart.addEventListener("click", function (){
-
-      addCart.style.backgroundColor = "red";
-
-      // const name = document.getElementById('name').value;
       
-      Store.addTeddy(data);
-      
-    
-    });
+      // Données à récupérer pour le localStorage; tableau stockant les produits.
+        let cartArray;
+        let cart = {
+          name: data.name,
+          image: data.imageUrl,
+          price: data.price,
+          id: data._id
+        }; 
+
+      //Fonction vérifiant le contenu du localStorage.
+      function testLocalStorage (){
+
+        if (localStorage.getItem("basketShop") === null){
+          cartArray = [];
+        }
+        else{
+          cartArray = JSON.parse(localStorage.getItem("basketShop"));
+        };
+        return cartArray;        
+      };
+
+    //Fonction d'ajout de produit.
+      function addProduct (){
+
+        testLocalStorage();
+        cartArray.push(cart);    
+        let cart_pushed = JSON.stringify(cartArray);
+        
+        localStorage.setItem("product", cart_pushed);
+        
+      };
+
+      //Bouton d'ajout d'un produit.
+      let addCart = document.getElementById("command");
+      addCart.addEventListener("click", addProduct);
 
 
 })
