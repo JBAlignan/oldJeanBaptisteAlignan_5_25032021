@@ -1,45 +1,46 @@
 
-
-
 const myContainer = document.getElementById("myContainer");
 
 
-
-
+//Gestion de l'affichage des produits.
 function basketDisplay(){
 
   //localStorage vide.
-  
   if (JSON.parse(localStorage.getItem("basketShop")) === null){
    
     let title = document.createElement("h1");
     title.innerText = "Panier Vide";
     myContainer.appendChild(title);
   }
-  //Produit(s) dans le localStorage.
+  //localStorage plein.
   else{
-    let productDisplay = [];
+
+    let cartContainer = "";
+    let productDisplay = JSON.parse(localStorage.getItem("basketShop"));
     console.log(productDisplay);
-    productDisplay.push(JSON.parse(localStorage.getItem("basketShop")));
-    productDisplay.forEach(function(product){
-      myContainer +=
-      `
-      < article class = "col-lg-6">     
+    productDisplay.forEach(function(cart){
+      cartContainer +=
+      `<article class = "col-lg-6">     
         <div class = "card mb-3"style = "max-width: 540px;">             
           <div class = "row g-0">        
             <div class = "col-md-4">        
-            <img src = "${product.imageUrl}" alt = "${product.name}">             
-          </div>
+              <img src = "${cart.image}" alt = "${cart.name}">             
+            </div>
             <div class = "col-md-8">        
               <div class = "card-body">       
-                <h5 class = "card-title" >${product.name}</h5>
-                  < p class = "card-text" > Prix: ${product.price}</p>
+                <h5 class = "card-title" >${cart.name}</h5>
+                  <p class = "card-text" > Prix: ${cart.price}</p>
               </div>
             </div>
-         </div>
+          </div>
         </div>
-      </article>
-      `;
-    })
+       </article>`;
+    });
+
+    //Intégration des carts dans le fichier html.
+    document.getElementById("myContainer").innerHTML = cartContainer;
+    
   };
 };
+
+

@@ -103,14 +103,14 @@ function teddyDisplay() {
 // };
 
       
-      // Données à récupérer pour le localStorage; tableau stockant les produits.
+      // Données à récupérer pour le localStorage; cartArray englobe cart.
         let cartArray;
         let cart = {
           name: data.name,
           image: data.imageUrl,
           price: data.price,
           id: data._id
-        }; 
+        };
 
       //Fonction vérifiant le contenu du localStorage.
       function testLocalStorage (){
@@ -129,10 +129,7 @@ function teddyDisplay() {
 
         testLocalStorage();
         cartArray.push(cart);    
-        let cart_pushed = JSON.stringify(cartArray);
-        
-        localStorage.setItem("product", cart_pushed);
-        
+        localStorage.setItem("basketShop", JSON.stringify(cartArray));       
       };
 
       //Bouton d'ajout d'un produit.
