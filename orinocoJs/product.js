@@ -81,7 +81,7 @@ function teddyDisplay() {
         image: teddy.imageUrl,
         price: teddy.price,
         id: teddy._id,
-        quantity: addBtn.quantity
+        quantity: 1
       };
 
       //Fonction vérifiant le contenu du localStorage.

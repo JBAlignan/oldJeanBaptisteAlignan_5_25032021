@@ -39,4 +39,5 @@ const myContainer = document.getElementById("myContainer");
   .catch(error => console.log('error', error));
 
 }     //Sortie de la fonction teddiesDisplay
-teddiesDisplay();
+
+
