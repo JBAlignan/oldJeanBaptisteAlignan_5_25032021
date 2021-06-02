@@ -40,4 +40,6 @@ const myContainer = document.getElementById("myContainer");
 
 }     //Sortie de la fonction teddiesDisplay
 
+teddiesDisplay();
+
 

@@ -51,40 +51,46 @@ function teddyDisplay() {
       let counter = document.getElementById("counter");
       let removeBtn = document.getElementById("removeBtn");
       let addBtn = document.getElementById("addBtn");
-      let quantity = 0;
+      let quantity = 1;
 
       counter.innerHTML = quantity;
-      counter.setAttribute("value", quantity)
+      
 
       //Gestion de la quantité d'oursons.
 
-      
-      
       addBtn.addEventListener("click", function(){
 
         quantity++;
         counter.innerHTML = quantity;
-        counter.setAttribute("value", quantity);
+        console.log(quantity)
+        
       })
       
       removeBtn.addEventListener("click", function(){
 
         quantity--;
         counter.innerHTML = quantity;
-        counter.setAttribute("value", quantity);
+        
       })
-      
+    
       // Données à récupérer pour le localStorage; cartArray englobe cart.
       let cartArray;
-      let cart = {
-        name: teddy.name,
-        image: teddy.imageUrl,
-        price: teddy.price,
-        id: teddy._id,
-        quantity: 1
-      };
+      // let cart = {
+      //   name: teddy.name,
+      //   image: teddy.imageUrl,
+      //   price: teddy.price,
+      //   id: teddy._id,
+      //   quantity: quantity
+      // };
+
 
       //Fonction vérifiant le contenu du localStorage.
+
+      let addTeddy = document.getElementById("command");
+      
+      /*Autre façon de faire:
+          const cartArray = JSON.parse(localStorage.getItem("basketShop")) || []
+      */
       function testLocalStorage (){
 
         if (localStorage.getItem("basketShop") === null){
@@ -92,19 +98,22 @@ function teddyDisplay() {
         }
         else{
           cartArray = JSON.parse(localStorage.getItem("basketShop"));
+          console.log(cartArray);
         };
         return cartArray;        
       };
 
-
-
       //Fonction d'ajout de produit.
-
-      let addTeddy = document.getElementById("command");
       addTeddy.addEventListener("click", function addProduct (){
       
         testLocalStorage();
-        cartArray.push(cart);    
+        cartArray.push({
+          name: teddy.name,
+          image: teddy.imageUrl,
+          price: teddy.price,
+          id: teddy._id,
+          quantity: quantity
+        });    
         localStorage.setItem("basketShop", JSON.stringify(cartArray));       
       });
 
@@ -114,5 +123,7 @@ function teddyDisplay() {
 
     .catch(error => console.log('error', error));
 };
+
+teddyDisplay();
 
 
