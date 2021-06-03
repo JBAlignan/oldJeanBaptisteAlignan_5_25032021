@@ -1,0 +1,52 @@
+nav{
+    background-color: #f3e9f1;
+}
+
+header nav div a {
+    font-size: 2em !important;
+}
+
+header nav div div {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.fa-shopping-cart{
+    padding-right: 1em;
+}
+
+main{
+    display: flex;
+    justify-content: center;
+}
+
+section{
+    width: 50%;
+    height: 50%;
+}
+
+#quantityLayout {
+    display: flex;
+    align-items: center;
+}
+
+div#quantityLayout p {
+    margin-right: 1em;
+    margin-bottom: 0;
+}
+
+div#quantityLayout button{
+    width: 2em;
+}
+
+div#quantityLayout span{
+    width: 2em;
+    text-align: center;
+    border: 1px solid black;
+}
+
+
+
+#buttonsLayout {
+
+}

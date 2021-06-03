@@ -21,7 +21,7 @@ const myContainer = document.getElementById("myContainer");
                       <div class="card-body">
                         <h5 class="card-title">${teddy.name}</h5>
                         <p class="card-text">${teddy.description}</p>
-                        <p class="card-text">Prix: ${teddy.price}</p>
+                        <p class="card-text">Prix: ${teddy.price/100} &euro;</p>
                       </div>
                     </div>
                   </div>

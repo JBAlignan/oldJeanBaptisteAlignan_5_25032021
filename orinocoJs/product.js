@@ -18,18 +18,20 @@ function teddyDisplay() {
           <div class="card-body">
             <h5 class="card-title" id="name" value="${teddy.name}">${teddy.name}</h5>
               <p class="card-text">${teddy.description}</p>
-              <p class="card-text">Prix: ${teddy.price}</p>
-
-              <p class="card-text">Quantité:</p>                
-                  <button id="removeBtn" type="button">-</button>
-                  <span id="counter"></span>
-                  <button id="addBtn" type="button">+</button>
-                
+              <p class="card-text">Prix: ${teddy.price/100} &euro;</p>
+                <div id="quantityLayout">   
+                  <p >Quantité:</p>             
+                      <button id="subtractBtn" type="button">-</button>
+                      <span id="counter"></span>
+                      <button id="addBtn" type="button">+</button>
+                </div>
               <label for="color-select" id="color-select">Couleur</label>
                 <select name="colorSelection" id="colorSelection">
                 </select>
-              <button class="btn btn-primary" type="button" id="command">Ajouter</button>
-              <a href="basket.html"><button class="btn btn-primary" type="button">Aller au panier</button></a>
+                <div id="buttonsLayout">
+                  <button class="btn btn-primary" type="button" id="command">Ajouter</button>
+                  <a href="basket.html"><button class="btn btn-primary" type="button">Aller au panier</button></a>
+              </div>
           </div>
         </section>
       `;
@@ -49,7 +51,7 @@ function teddyDisplay() {
       //Boutons de gestion de la quantité d'un produit.
 
       let counter = document.getElementById("counter");
-      let removeBtn = document.getElementById("removeBtn");
+      let subtractBtn = document.getElementById("subtractBtn");
       let addBtn = document.getElementById("addBtn");
       let quantity = 1;
 
@@ -61,16 +63,13 @@ function teddyDisplay() {
       addBtn.addEventListener("click", function(){
 
         quantity++;
-        counter.innerHTML = quantity;
-        console.log(quantity)
-        
+        counter.innerHTML = quantity;    
       })
       
-      removeBtn.addEventListener("click", function(){
+      subtractBtn.addEventListener("click", function(){
 
         quantity--;
-        counter.innerHTML = quantity;
-        
+        counter.innerHTML = quantity;       
       })
     
       // Données à récupérer pour le localStorage; cartArray englobe cart.
@@ -110,7 +109,7 @@ function teddyDisplay() {
         cartArray.push({
           name: teddy.name,
           image: teddy.imageUrl,
-          price: teddy.price,
+          price: teddy.price/100,
           id: teddy._id,
           quantity: quantity
         });    
