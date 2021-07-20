@@ -1,28 +1,11 @@
-nav{
-    background-color: #f3e9f1;
+section div:first-of-type {
+    object-fit: cover;
+    margin: auto;
 }
 
-header nav div a {
-    font-size: 2em !important;
-}
 
-header nav div div {
-    display: flex;
-    justify-content: flex-end;
-}
-
-.fa-shopping-cart{
-    padding-right: 1em;
-}
-
-main{
-    display: flex;
-    justify-content: center;
-}
-
-section{
-    width: 50%;
-    height: 50%;
+img{
+    object-fit: contain;
 }
 
 #quantityLayout {
@@ -37,16 +20,25 @@ div#quantityLayout p {
 
 div#quantityLayout button{
     width: 2em;
+    height: 2.3em;
+    border-radius: 5px 0 0 5px;
+}
+
+div#quantityLayout button:last-of-type{
+    width: 2em;
+    height: 2.3em;
+    border-radius: 0 5px 5px 0;
 }
 
 div#quantityLayout span{
+    display: flex;
+    justify-content: center;
+    align-self: center;
     width: 2em;
-    text-align: center;
+    height: 2em;
     border: 1px solid black;
 }
 
 
 
-#buttonsLayout {
 
-}

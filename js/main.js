@@ -16,17 +16,17 @@ fetch('http://localhost:3000/api/teddies')
         teddyCart += 
             `
             <article class="col-lg-6">
-                <a href="product.html?id=${teddy._id}">
-                    <div class="card mb-3" style="max-width: 540px;">
+                <a href="../pages/product.html?id=${teddy._id}" class="text-decoration-none text-dark">
+                    <div class="card mb-3 max-width">
                         <div class="row g-0">
                             <div class="col-md-4">
                                 <img src="${teddy.imageUrl}" alt="${teddy.name}">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
-                                <h5 class="card-title">${teddy.name}</h5>
+                                <h5 class="card-title pb-1">${teddy.name}</h5>
                                 <p class="card-text">${teddy.description}</p>
-                                <p class="card-text">Prix: ${teddy.price/100} &euro;</p>
+                                <p class="card-text">Prix: ${teddy.price}</p>
                             </div>
                         </div>
                     </div>

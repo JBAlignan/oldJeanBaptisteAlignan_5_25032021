@@ -2,6 +2,10 @@ nav{
     background-color: #f3e9f1;
 }
 
+header{
+    margin-bottom: 2em;
+}
+
 header nav div a {
     font-size: 2em !important;
 }
@@ -13,6 +17,10 @@ header nav div div {
 
 .fa-shopping-cart{
     padding-right: 1em;
+    background: -webkit-linear-gradient(bottom right, #d3803b, #8f5bfe);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
 }
 
 #myContainer{
@@ -63,4 +71,9 @@ div#basketTitle ~ button{
 
 article.col-lg-10 {
     margin: auto;
+}
+
+.fab{
+    font-size: 2.5em;
+    color: #1E1D1E;
 }
