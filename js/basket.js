@@ -17,7 +17,8 @@ function basketDisplay(){
       let cartContainer = [""];
       let productDisplay = JSON.parse(localStorage.getItem("basketShop"));
       let testBasket = [];
-      console.log(productDisplay);
+      console.log(typeof testBasket);
+      console.log(typeof productDisplay);
       productDisplay.forEach(function(cart){
         testBasket.push(cart);
         const totalPrice = cart.price * cart.quantity;
@@ -47,28 +48,7 @@ function basketDisplay(){
       
       document.getElementById("productSection").innerHTML = cartContainer;
   
-      //Bouton remove.
-      let article = document.getElementsByTagName("article");
-      // console.log(article);
-      let articleId = document.querySelector('article').id;
-      // console.log(articleId);
-      let removeBtnId = document.getElementById("removeBtn").value;
-      // console.log(removeBtnId);
-  
-      let removeBtn = document.getElementById("removeBtn");
-      // console.log(removeBtn);
-      // article.appendChild(removeBtn);
-      
-  
-      removeBtn.addEventListener("click", function removeTeddy(article, index){
-        if (articleId === removeBtnId){
-          // console.log(articleId);
-          // console.log(cartContainer);
-          // cartContainer.splice(index, 1);
-          // console.log(index);
-          localStorage.removeItem('basketShop'[0]);
-        }
-      });
+
   
     };
   };

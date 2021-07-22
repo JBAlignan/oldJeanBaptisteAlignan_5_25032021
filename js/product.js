@@ -95,13 +95,15 @@ fetch(`http://localhost:3000/api/teddies/${searchId}`)
 
       function getLocalStorage () {
 
-        if(localStorage.getItem("basketShop") === null) {
-          storageManagement = [];
-        }
-        else {
-          localStorage.setItem("basketShop", JSON.stringify(teddy));
-        }
-        return storageManagement;
+        return localStorage.getItem("basketShop") || [];
+
+        // if(localStorage.getItem("basketShop") === null) {
+        //   storageManagement = [];
+        // }
+        // else {
+        //   localStorage.setItem("basketShop", JSON.stringify(teddy));
+        // }
+        // return storageManagement;
       }
 
       let commandBtn = document.getElementById("command");
@@ -109,7 +111,7 @@ fetch(`http://localhost:3000/api/teddies/${searchId}`)
 
       function command(){
 
-        getLocalStorage();
+        storageManagement = getlocalStorage();
         storageManagement.push({
 
           name: teddy.name,
