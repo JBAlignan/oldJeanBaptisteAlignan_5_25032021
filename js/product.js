@@ -15,10 +15,7 @@ const myContainer = document.getElementById("myContainer");
 fetch(`http://localhost:3000/api/teddies/${searchId}`)
 .then(response => response.json())
 .then((teddy) => {
-  console.log(teddy);
-  console.log(typeof teddy);
-  console.log(teddy._id)
-    
+
     const productCart =
         `
         <section class="card mb-3">
@@ -88,22 +85,13 @@ fetch(`http://localhost:3000/api/teddies/${searchId}`)
       })
 
 
-
       // Gestion du localStorage à l'ajout du produit.
 
       let storageManagement;
 
-      function getLocalStorage () {
+      getStorage = function getLocalStorage(){
 
-        return localStorage.getItem("basketShop") || [];
-
-        // if(localStorage.getItem("basketShop") === null) {
-        //   storageManagement = [];
-        // }
-        // else {
-        //   localStorage.setItem("basketShop", JSON.stringify(teddy));
-        // }
-        // return storageManagement;
+        return JSON.parse(localStorage.getItem("basketShop")) || [];
       }
 
       let commandBtn = document.getElementById("command");
@@ -111,7 +99,7 @@ fetch(`http://localhost:3000/api/teddies/${searchId}`)
 
       function command(){
 
-        storageManagement = getlocalStorage();
+        storageManagement = getStorage();
         storageManagement.push({
 
           name: teddy.name,

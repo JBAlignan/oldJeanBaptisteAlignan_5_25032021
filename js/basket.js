@@ -6,19 +6,45 @@ function basketDisplay(){
     //localStorage vide.
     if (JSON.parse(localStorage.getItem("basketShop")) === null){
      
+        //Section de l'affichage des produits.
         let basketSection = document.getElementById("productSection");
+        basketSection.style.border = "1px solid rgba(0, 0, 0, .125)";
+        basketSection.style.margin = "5em auto";
+
+        //Texte signalant le panier vide.
         let emptyBasket = document.createElement("span");
+        emptyBasket.style.margin = "3em auto";
         emptyBasket.innerText = "Panier Vide";
+        emptyBasket.style.textAlign = "center";
+
+        //Bouton de retour à l'accueil.
+        let homeBackBtn = document.createElement("BUTTON");
+        homeBackBtn.innerText = "Retour à l'accueil";
+        homeBackBtn.style.maxWidth = "15em";
+        homeBackBtn.classList.add("btn-dark");
+        homeBackBtn.classList.add("btn-sm");
+        
+        let link = document.createElement("a");
+        link.setAttribute("href", "/index.html");
+        link.style.margin = "0 auto 3em auto";
+        link.style.textAlign = "center";
+        
+        //Gestion des parentés des éléments.
         basketSection.appendChild(emptyBasket);
+        basketSection.appendChild(homeBackBtn);
+        basketSection.appendChild(link);
+        link.appendChild(homeBackBtn);
+
+        //Non-affichage du formulaire.
+        document.getElementById("formSection").style.display = "none";
     }
+
     //localStorage plein.
     else{
   
       let cartContainer = [""];
       let productDisplay = JSON.parse(localStorage.getItem("basketShop"));
       let testBasket = [];
-      console.log(typeof testBasket);
-      console.log(typeof productDisplay);
       productDisplay.forEach(function(cart){
         testBasket.push(cart);
         const totalPrice = cart.price * cart.quantity;
@@ -54,9 +80,6 @@ function basketDisplay(){
   };
   
   basketDisplay();
-
-
-
 
 //Gestion du formulaire.
 
