@@ -49,7 +49,7 @@ function basketDisplay(){
         testBasket.push(cart);
         const totalPrice = cart.price * cart.quantity;
         cartContainer +=
-        `<article id="${cart.id}" class = "col-lg-6">     
+        `<article id="${cart.id}" value ="${cart.id}" class = "col-lg-6">     
           <div class = "card mb-3">             
             <div class = "row g-0">        
               <div class = "col-md-4">        
@@ -61,6 +61,7 @@ function basketDisplay(){
                     <p class = "card-text" > Quantité: ${cart.quantity}</p>
                     <p class = "card-text" > Prix: ${totalPrice} &#128</p>
                     <button id="removeBtn" class="btn btn-dark" type="button" value="${cart.id}">Supprimer</button>
+                    <button onclick="" id="editBtn" class="btn btn-dark" type="button" value="">Modifier</button>
                 </div>
               </div>
             </div>
@@ -68,18 +69,40 @@ function basketDisplay(){
          </article>`;
       });
   
-    
-  
       //Intégration des produits dans le fichier html.
       
       document.getElementById("productSection").innerHTML = cartContainer;
-  
 
+      //Bouton supprimer
+
+      let removeBtn = document.getElementById("removeBtn").value;
+      let articleId = document.getElementsByTagName("article");
+      console.log(articleId);
+      console.log(typeof articleId);
+      let articleIdArray = Object.entries(articleId);
+      console.log(typeof articleIdArray);
+      let productSection = document.getElementById("productSection");
+      console.log(typeof cartContainer);
+      console.log(typeof testBasket);
+      
+      
+      
+      
+      console.log(removeBtn)
+
+      removeBtn.addEventListener("click", function() {
+        if(removeBtn === articleId) {
+          console.log("succès");
+        }
+
+})
   
     };
   };
   
   basketDisplay();
+
+
 
 //Gestion du formulaire.
 
@@ -89,7 +112,7 @@ document.getElementById("firstName").addEventListener("blur", firstNameInput);
 function firstNameInput(){
 
   const firstName = document.getElementById("firstName");
-  const regex = /^[A-Za-z]{2,15}(-)?$/;
+  const regex = /^[A-Za-z]{2,25}$/;
 
   if (!regex.test(firstName.value)) {
 
@@ -97,6 +120,7 @@ function firstNameInput(){
   }
   else {
 
+    firstName.classList.add("is-valid");
     firstName.classList.remove("is-invalid");
   }
 };
@@ -108,7 +132,7 @@ document.getElementById("name").addEventListener("blur", nameInput);
 function nameInput(){
 
   const name = document.getElementById("name");
-  const regex = /^([A-Z]{2,15})\-$/;
+  const regex = /^([A-Z]{2,25})$/;
 
   if (!regex.test(name.value)) {
 
@@ -116,6 +140,7 @@ function nameInput(){
   }
   else {
 
+    name.classList.add("is-valid");
    name.classList.remove("is-invalid");
   }
 };
@@ -126,7 +151,7 @@ document.getElementById("mail").addEventListener("blur", mailInput);
 function mailInput(){
 
   const mail = document.getElementById("mail");
-  const regex = /^[A-Za-z0-9]{2,15}$/;
+  const regex = /^([A-Za-z0-9_\-\.]+)@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,5})$/;
 
   if (!regex.test(mail.value)) {
 
@@ -134,6 +159,7 @@ function mailInput(){
   }
   else {
 
+    mail.classList.add("is-valid");
     mail.classList.remove("is-invalid");
   }
 };
@@ -151,6 +177,7 @@ function cityInput(){
     }
   else {
 
+    city.classList.add("is-valid");
     ville.classList.remove("is-invalid");
   }
 };
@@ -168,6 +195,7 @@ function zipInput(){
     }
   else {
 
+    zip.classList.add("is-valid");
     zip.classList.remove("is-invalid");
   }
 };
@@ -185,6 +213,19 @@ function paysInput(){
     }
   else {
 
+    pays.classList.add("is-valid");
     pays.classList.remove("is-invalid");
   }
 };
+
+      //Gestion du lien du btn Valider.
+
+      let validationBtn = document.getElementById("validationBtn");
+      let formManagement = document.getElementsByTagName("input").classList;
+      // if(formManagement.contains("is-valid")){
+
+      //  console.log('succès');
+      // };
+
+      console.log(pays.classList.contains("is-valid"))
+      console.log(formManagement)
