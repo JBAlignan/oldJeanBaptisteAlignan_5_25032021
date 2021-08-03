@@ -1,4 +1,7 @@
 const myContainer = document.getElementById("myContainer");
+function changeProduct(id){
+  window.location.href = `http://localhost:3000/api/teddies/${id}`;
+}
 
 //Gestion de l'affichage des produits du panier.
 function basketDisplay(){
@@ -38,30 +41,31 @@ function basketDisplay(){
         //Non-affichage du formulaire.
         document.getElementById("formSection").style.display = "none";
     }
+      //Bouton modifier
+
 
     //localStorage plein.
     else{
+
   
       let cartContainer = [""];
       let productDisplay = JSON.parse(localStorage.getItem("basketShop"));
-      let testBasket = [];
-      productDisplay.forEach(function(cart){
-        testBasket.push(cart);
-        const totalPrice = cart.price * cart.quantity;
+      productDisplay.forEach(function(element){       
+        const totalPrice = (element.price * element.quantity) / 100;
         cartContainer +=
-        `<article id="${cart.id}" value ="${cart.id}" class = "col-lg-6">     
+        `<article id="${element.id}" value ="${element.id}" class = "col-lg-6">     
           <div class = "card mb-3">             
             <div class = "row g-0">        
               <div class = "col-md-4">        
-                <img src="${cart.image}" alt="${cart.name}">             
+                <img src="${element.image}" alt="${element.name}">
               </div>
               <div class = "col-md-8">        
                 <div class = "card-body">       
-                  <h5 class = "card-title" >${cart.name}</h5>
-                    <p class = "card-text" > Quantité: ${cart.quantity}</p>
+                  <h5 class = "card-title" >${element.name}</h5>
+                    <p class = "card-text" > Quantité: ${element.quantity}</p>
                     <p class = "card-text" > Prix: ${totalPrice} &#128</p>
-                    <button id="removeBtn" class="btn btn-dark" type="button" value="${cart.id}">Supprimer</button>
-                    <button onclick="" id="editBtn" class="btn btn-dark" type="button" value="">Modifier</button>
+                    <button id="removeBtn" class="btn btn-dark" type="button" value="${element.id}">Supprimer</button>
+                    <a onclick="changeProduct(${element.id})" id="editBtn" class="btn btn-dark" type="button" value="">Modifier</a>
                 </div>
               </div>
             </div>
@@ -69,6 +73,8 @@ function basketDisplay(){
          </article>`;
       });
   
+
+
       //Intégration des produits dans le fichier html.
       
       document.getElementById("productSection").innerHTML = cartContainer;
