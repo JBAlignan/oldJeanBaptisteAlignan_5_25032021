@@ -6,48 +6,6 @@ function changeProduct(id){
 //Gestion de l'affichage des produits du panier.
 function basketDisplay(){
 
-    //localStorage vide.
-    if (JSON.parse(localStorage.getItem("basketShop")) === null){
-     
-        //Section de l'affichage des produits.
-        let basketSection = document.getElementById("productSection");
-        basketSection.style.border = "1px solid rgba(0, 0, 0, .125)";
-        basketSection.style.margin = "5em auto";
-
-        //Texte signalant le panier vide.
-        let emptyBasket = document.createElement("span");
-        emptyBasket.style.margin = "3em auto";
-        emptyBasket.innerText = "Panier Vide";
-        emptyBasket.style.textAlign = "center";
-
-        //Bouton de retour à l'accueil.
-        let homeBackBtn = document.createElement("BUTTON");
-        homeBackBtn.innerText = "Retour à l'accueil";
-        homeBackBtn.style.maxWidth = "15em";
-        homeBackBtn.classList.add("btn-dark");
-        homeBackBtn.classList.add("btn-sm");
-        
-        let link = document.createElement("a");
-        link.setAttribute("href", "/index.html");
-        link.style.margin = "0 auto 3em auto";
-        link.style.textAlign = "center";
-        
-        //Gestion des parentés des éléments.
-        basketSection.appendChild(emptyBasket);
-        basketSection.appendChild(homeBackBtn);
-        basketSection.appendChild(link);
-        link.appendChild(homeBackBtn);
-
-        //Non-affichage du formulaire.
-        document.getElementById("formSection").style.display = "none";
-    }
-      //Bouton modifier
-
-
-    //localStorage plein.
-    else{
-
-  
       let cartContainer = [""];
       let productDisplay = JSON.parse(localStorage.getItem("basketShop"));
       productDisplay.forEach(function(element){       
@@ -64,17 +22,17 @@ function basketDisplay(){
                   <h5 class = "card-title" >${element.name}</h5>
                     <p class = "card-text" > Quantité: ${element.quantity}</p>
                     <p class = "card-text" > Prix: ${totalPrice} &#128</p>
-                    <button id="removeBtn" class="btn btn-dark" type="button" value="${element.id}">Supprimer</button>
-                    <a onclick="changeProduct(${element.id})" id="editBtn" class="btn btn-dark" type="button" value="">Modifier</a>
+                    <button id="removeBtn" class="btn btn-dark" value="${element.id}">Supprimer</button>
+                    <a onclick="changeProduct('${element.id}')" id="editBtn" class="btn btn-dark" value="">Modifier</a>
                 </div>
               </div>
             </div>
           </div>
          </article>`;
       });
+
+      console.log(productDisplay);
   
-
-
       //Intégration des produits dans le fichier html.
       
       document.getElementById("productSection").innerHTML = cartContainer;
@@ -82,29 +40,13 @@ function basketDisplay(){
       //Bouton supprimer
 
       let removeBtn = document.getElementById("removeBtn").value;
-      let articleId = document.getElementsByTagName("article");
-      console.log(articleId);
-      console.log(typeof articleId);
-      let articleIdArray = Object.entries(articleId);
-      console.log(typeof articleIdArray);
-      let productSection = document.getElementById("productSection");
-      console.log(typeof cartContainer);
-      console.log(typeof testBasket);
-      
-      
-      
-      
-      console.log(removeBtn)
+      console.log(removeBtn);
+      let test = document.getElementsByTagName("article");
+      console.log(test);
+      let testDeux = test.id;
+      console.log(testDeux);
 
-      removeBtn.addEventListener("click", function() {
-        if(removeBtn === articleId) {
-          console.log("succès");
-        }
-
-})
-  
     };
-  };
   
   basketDisplay();
 

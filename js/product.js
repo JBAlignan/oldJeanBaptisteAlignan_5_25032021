@@ -1,7 +1,6 @@
 const searchUrl = new URL(window.location.href); // Obtention de l'URL du produit consulté.
 const searchId = searchUrl.searchParams.get('id'); // Obtention de l'id du produit.
 
-
 // Sélection de l'élément <main> dans le DOM.
 // Création d'une variable vide de type string.
 
@@ -84,7 +83,7 @@ fetch(`http://localhost:3000/api/teddies/${searchId}`)
         counter.innerHTML = quantity;
       })
 
-      // Gestion du localStorage à l'ajout du produit.
+      //Gestion du localStorage à l'ajout du produit.
 
       let storageManagement;
 
@@ -96,21 +95,47 @@ fetch(`http://localhost:3000/api/teddies/${searchId}`)
       let commandBtn = document.getElementById("command");
       commandBtn.addEventListener("click", command);
 
+      function checkProduct(product){
+        return product.id === teddy._id;
+      }
+
       function command(){
 
         storageManagement = getStorage();
-        storageManagement.push({
+        
+        if(storageManagement.length === 0){
+          storageManagement.push({
 
-          name: teddy.name,
-          description: teddy.description,
-          image: teddy.imageUrl,
-          id: teddy._id,
-          quantity: quantity,
-          price: quantity * teddy.price
-        });
+            name: teddy.name,
+            description: teddy.description,
+            image: teddy.imageUrl,
+            id: teddy._id,
+            quantity: quantity,
+            price: quantity * teddy.price
+          });
+        }
+        else{
+          //Vérification si array contient le produit.
+          let existingProduct = storageManagement.find(checkProduct);
+          if (existingProduct){
+            existingProduct.quantity += quantity;
+            existingProduct.price += quantity * teddy.price;
+          } else{
+            storageManagement.push({
+
+              name: teddy.name,
+              description: teddy.description,
+              image: teddy.imageUrl,
+              id: teddy._id,
+              quantity: quantity,
+              price: quantity * teddy.price
+            });
+          }
+      }
 
         localStorage.setItem("basketShop", JSON.stringify(storageManagement));
       }
+
     }
 )
 
