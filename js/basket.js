@@ -1,15 +1,18 @@
 const myContainer = document.getElementById("myContainer");
-function changeProduct(id){
-  window.location.href = `http://localhost:3000/api/teddies/${id}`;
-}
+// function changeProduct(id){
+//   window.location.href = `http://localhost:3000/api/teddies/${id}`;
+// }
 
 //Gestion de l'affichage des produits du panier.
 function basketDisplay(){
 
       let cartContainer = [""];
       let productDisplay = JSON.parse(localStorage.getItem("basketShop"));
+      let i = 0;
       productDisplay.forEach(function(element){       
         const totalPrice = (element.price * element.quantity) / 100;
+        let btnSuppr = "btnSuppr-" + i;
+        console.log(btnSuppr);
         cartContainer +=
         `<article id="${element.id}" value ="${element.id}" class = "col-lg-6">     
           <div class = "card mb-3">             
@@ -22,13 +25,16 @@ function basketDisplay(){
                   <h5 class = "card-title" >${element.name}</h5>
                     <p class = "card-text" > Quantité: ${element.quantity}</p>
                     <p class = "card-text" > Prix: ${totalPrice} &#128</p>
-                    <button id="removeBtn" class="btn btn-dark" value="${element.id}">Supprimer</button>
+                    <button id="${btnSuppr}" class="btn btn-dark" value="${element.id}">Supprimer</button>
                     <a onclick="changeProduct('${element.id}')" id="editBtn" class="btn btn-dark" value="">Modifier</a>
                 </div>
               </div>
             </div>
           </div>
          </article>`;
+         
+         //Incrémentation du numéro de boutton selon l'index de l'item dans le LocalStorage.
+         i++;
       });
 
       console.log(productDisplay);
@@ -37,16 +43,22 @@ function basketDisplay(){
       
       document.getElementById("productSection").innerHTML = cartContainer;
 
-      //Bouton supprimer
+      //Boutton de suppression.
+      function removeProduct () {
 
-      let removeBtn = document.getElementById("removeBtn").value;
-      console.log(removeBtn);
-      let test = document.getElementsByTagName("article");
-      console.log(test);
-      let testDeux = test.id;
-      console.log(testDeux);
+        let btnId = "btnSuppr-0";
+        let indexTab = btnId.split('-');
+        let index = indexTab[1];
+        if (index >= -1) {
+          
+          productDisplay.splice(index, 1);
+          localStorage.setItem("basketShop", JSON.stringify(productDisplay));
+          
+        };
+      }
+        document.getElementById("btnSuppr-0").addEventListener("click", removeProduct);
 
-    };
+  };
   
   basketDisplay();
 

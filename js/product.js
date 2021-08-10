@@ -83,6 +83,8 @@ fetch(`http://localhost:3000/api/teddies/${searchId}`)
         counter.innerHTML = quantity;
       })
 
+
+
       //Gestion du localStorage à l'ajout du produit.
 
       let storageManagement;
