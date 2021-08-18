@@ -6,15 +6,13 @@ const searchId = searchUrl.searchParams.get('id'); // Obtention de l'id du produ
 
 const myContainer = document.getElementById("myContainer");
 
-
-
 // Recherche des données de l'ourson consulté via fetch.
 // Création et insertion du code html de l'ourson consulté.
 
 fetch(`http://localhost:3000/api/teddies/${searchId}`)
 .then(response => response.json())
 .then((teddy) => {
-
+    const price = teddy.price / 100;
     const productCart =
         `
         <section class="card mb-3">
@@ -24,7 +22,7 @@ fetch(`http://localhost:3000/api/teddies/${searchId}`)
             <div class="card-body">
                 <h5 class="card-title" id="name" value="${teddy.name}">${teddy.name}</h5>
                     <p class="card-text">${teddy.description}</p>
-                    <p class="card-text">Prix: ${teddy.price}</p>
+                    <p class="card-text">Prix: ${price} &#128</p>
                         <div id="quantityLayout" class="mb-3">
                             <p>Quantité:</p>             
                                 <button id="subtractBtn" type="button" class="btn-sm btn-dark">-</button>
@@ -36,7 +34,7 @@ fetch(`http://localhost:3000/api/teddies/${searchId}`)
                         </select>
                         <div id="buttonsLayout">
                             <button class="btn btn-dark" type="button" id="command">Ajouter</button>
-                            <a href="basket.html"><button class="btn btn-dark" type="button">Aller au panier</button></a>
+                            <a href="basket.html" id="basketLink" class="btn btn-dark" type="button">Aller au panier</a>
                         </div>
                 </div>
         </section>
@@ -44,16 +42,24 @@ fetch(`http://localhost:3000/api/teddies/${searchId}`)
 
     myContainer.innerHTML = productCart;
 
+    if(localStorage.getItem("basketShop") === null){
+      document.getElementsByClassName("navbar-nav")[0].style.display = "none";
+  }
+
+    const optionValue = document.getElementById("colorSelection");
+
+//-------------------------------------------------------------------------
 
       //Fonction créant les options de couleurs selon les données envoyées par l'API
       teddy.colors.forEach(function (choice) {
 
-        const optionValue = document.getElementById("colorSelection");
         const option = document.createElement("option");
         option.textContent = `${choice}`;
         option.setAttribute("value", `${choice}`)
         optionValue.add(option);
       });
+
+//-------------------------------------------------------------------------
 
 
       //Boutons de gestion de la quantité d'un produit.
@@ -64,6 +70,8 @@ fetch(`http://localhost:3000/api/teddies/${searchId}`)
       let quantity = 1;
 
       counter.innerHTML = quantity;
+
+//-------------------------------------------------------------------------
 
 
       //Gestion de la quantité d'oursons.
@@ -83,7 +91,7 @@ fetch(`http://localhost:3000/api/teddies/${searchId}`)
         counter.innerHTML = quantity;
       })
 
-
+//-------------------------------------------------------------------------
 
       //Gestion du localStorage à l'ajout du produit.
 
@@ -113,7 +121,8 @@ fetch(`http://localhost:3000/api/teddies/${searchId}`)
             image: teddy.imageUrl,
             id: teddy._id,
             quantity: quantity,
-            price: quantity * teddy.price
+            price: quantity * teddy.price,
+            color: optionValue.value
           });
         }
         else{
@@ -130,10 +139,20 @@ fetch(`http://localhost:3000/api/teddies/${searchId}`)
               image: teddy.imageUrl,
               id: teddy._id,
               quantity: quantity,
-              price: quantity * teddy.price
+              price: quantity * teddy.price,
+              color: optionValue.value
             });
           }
       }
+
+//-------------------------------------------------------------------------
+
+
+
+  let test = document.getElementById("basketLink");
+  console.log(test);
+  test.classList.remove("btn-dark");
+  test.classList.add("bg-secondary");
 
         localStorage.setItem("basketShop", JSON.stringify(storageManagement));
       }

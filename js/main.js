@@ -1,6 +1,8 @@
 // Sélection de l'élément <main> dans le DOM
 // Création d'une variable vide de type string
 
+const searchUrl = new URL(window.location.href);
+
 const mainContainer = document.getElementById('myContainer');
 let teddyCart = '';
 
@@ -12,7 +14,7 @@ fetch('http://localhost:3000/api/teddies')
 .then((teddies) => {
 
     teddies.forEach(function(teddy){
-
+        const teddyPrice = teddy.price / 100;
         teddyCart += 
             `
             <article class="col-lg-6">
@@ -26,7 +28,7 @@ fetch('http://localhost:3000/api/teddies')
                                 <div class="card-body">
                                 <h5 class="card-title pb-1">${teddy.name}</h5>
                                 <p class="card-text">${teddy.description}</p>
-                                <p class="card-text">Prix: ${teddy.price}</p>
+                                <p class="card-text">Prix: ${teddyPrice} &#128</p>
                             </div>
                         </div>
                     </div>
@@ -36,6 +38,10 @@ fetch('http://localhost:3000/api/teddies')
             });
 
         mainContainer.innerHTML = teddyCart;
+
+        if(localStorage.getItem("basketShop") === null){
+            document.getElementsByClassName("navbar-nav")[0].style.display = "none";
+        }
     })
 .catch(error => console.log('error', error));
 
