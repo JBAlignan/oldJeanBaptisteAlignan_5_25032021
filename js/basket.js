@@ -2,11 +2,10 @@ const myContainer = document.getElementById("myContainer");
 let productDisplay = JSON.parse(localStorage.getItem("basketShop"));
 let selectedProduct;
 let optionValue;
+let cartContainer = [""];
 
 //Gestion de l'affichage des produits du panier.
 function basketDisplay(){
-
-      let cartContainer = [""];
       
       productDisplay.forEach(function(element){       
         const totalPrice = (element.price * element.quantity) / 100;
@@ -30,31 +29,6 @@ function basketDisplay(){
           </div>
          </article>`;
 
-//-----------------------------------------------------
-
-// let searchUrl = new URL(window.location.href);
-
-// let test = searchUrl.host;
-// let testDeux = searchUrl.pathname;
-// console.log(testDeux.replace("/basket.html", 'product.html?id=${element.id}'));
-
-
-// console.log(searchUrl);
-// console.log(typeof searchUrl);
-
-// console.log(test);
-// console.log(typeof test);
-
-// console.log(testDeux);
-// console.log(typeof testDeux);
-
-// testTrois = test + testDeux
-// console.log(testTrois);
-// console.log(typeof testTrois);
-
-// let testQuatre = testTrois.replace("/basket.html", '/product.html?id=${element.id}')
-// console.log(testQuatre);
-
 //------------------------------------------------
          
       });
@@ -74,133 +48,31 @@ function basketDisplay(){
       return product.id !== productId;
     });
     localStorage.setItem("basketShop", JSON.stringify(productDisplay));
-    basketDisplay();
+    document.location.reload();
   };
 
-  //Bouton de modification des articles.
 
-// function changeProduct(productId){
-
-//   selectedProduct = productDisplay.find(function(product){
-//     return product.id === productId;
-//   })
-
-//   if (selectedProduct){
-//     displayModifPage();
-//   }
-// }
-
-// function displayModifPage(){
-
-//   fetch(`http://localhost:3000/api/teddies/${selectedProduct.id}`)
-//   .then(response => response.json())
-//   .then((product) => {
-  
-//       const productCart =
-//           `
-//           <section class="card mb-3">
-//           <div class="col-7">
-//               <img src="${selectedProduct.image}" id="img-product" class="card-img-top" alt="Photographie du produit">
-//           </div>
-//               <div class="card-body">
-//                   <h5 class="card-title" id="name" value="${selectedProduct.name}">${selectedProduct.name}</h5>
-//                       <p class="card-text">${selectedProduct.description}</p>
-//                       <p class="card-text">Prix: ${selectedProduct.price}</p>
-//                           <div id="quantityLayout" class="mb-3">
-//                               <p>Quantité:</p>             
-//                                   <button id="subtractBtn" type="button" class="btn-sm btn-dark">-</button>
-//                                   <span id="counter"></span>
-//                                   <button id="addBtn" type="button" class="btn-sm btn-dark">+</button>
-//                           </div>
-//                       <label for="color-select" id="color-select" class="mb-4">Couleur</label>
-//                           <select name="colorSelection" id="colorSelection">
-//                           </select>
-//                           <div id="buttonsLayout">
-//                               <button class="btn btn-dark" type="button" id="command">Ajouter</button>
-//                               <a href="basket.html"><button class="btn btn-dark" type="button">Aller au panier</button></a>
-//                           </div>
-//                   </div>
-//           </section>
-//           `;
-  
-//       myContainer.innerHTML = productCart;
-  
-
-//       optionValue = document.getElementById("colorSelection");
-
-//         //Fonction créant les options de couleurs selon les données envoyées par l'API
-//         product.colors.forEach(function (choice) {
-  
-//           const option = document.createElement("option");
-//           option.textContent = `${choice}`;
-//           option.setAttribute("value", `${choice}`)
-//           optionValue.add(option);
-//         });
-  
-//         //Boutons de gestion de la quantité d'un produit.
-  
-//         let counter = document.getElementById("counter");
-//         let subtractBtn = document.getElementById("subtractBtn");
-//         let addBtn = document.getElementById("addBtn");
-//         let quantity = 1;
-  
-//         counter.innerHTML = selectedProduct.quantity;
-
-  
-  
-//         //Gestion de la quantité d'oursons.
-  
-//         addBtn.addEventListener("click", function(){
-  
-//           selectedProduct.quantity++;
-//           counter.innerHTML = selectedProduct.quantity;
-//         })
-        
-//         subtractBtn.addEventListener("click", function(){
-  
-//           selectedProduct.quantity--;
-//           if (selectedProduct.quantity < 1) {
-//             selectedProduct.quantity = 1;
-//           }
-//           counter.innerHTML = selectedProduct.quantity;
-//         })
-  
-//         //Gestion du localStorage à l'ajout du produit.
-  
-//         let storageManagement;
-  
-//         let commandBtn = document.getElementById("command");
-//         commandBtn.addEventListener("click", command);
-  
-
-//       });
-//    }
-
-//   getStorage = function getLocalStorage(){
-  
-//     return JSON.parse(localStorage.getItem("basketShop")) || [];
-//   }
-
-//   function command(){
-  
-//     storageManagement = getStorage();
-    
-//       //Vérification si array contient le produit.
-//       let existingProduct = storageManagement.find(function(product) {
-//         return product.id === selectedProduct.id;
-//       })
-//       if (existingProduct){
-//         existingProduct.quantity = parseInt(counter.innerHTML);
-//         existingProduct.price = parseInt(counter.innerHTML) * selectedProduct.price;
-//         existingProduct.color = optionValue.value;
-//       } 
-// }
 
 //--------------------------------------------------------------//
 
 
 //Gestion du formulaire.
 
+function validationCommand(event){
+  event.preventDefault();
+  const data = new FormData(event.target);
+  const firstName = data.get('firstName');
+  const lastName = data.get('name');
+  const city = data.get('ville');
+  const email = data.get('mail');
+  const address = data.get('pays');
+  const contact = new Contact(firstName, lastName, address, city, email);
+
+  console.log(JSON.stringify(contact));
+  const products = JSON.parse(localStorage.getItem("basketShop"));
+  const order = new Order(contact, products);
+  console.log(order);
+}
 
 //Prénom
 document.getElementById("firstName").addEventListener("blur", firstNameInput);
@@ -314,11 +186,18 @@ function paysInput(){
   }
 };
 
-      //Gestion du lien du btn Valider.
+      //Gestion du lien du bouton Valider.
 
-      let validationBtn = document.getElementById("validationBtn");
-      let formManagement = document.getElementsByTagName("input").classList;
-      // if(formManagement.contains("is-valid")){
+      // let validationBtn = document.getElementById("validationBtn");
+      let test = document.querySelectorAll("input");
+      let testDeux = document.getElementById("validationBtn");
 
-      //  console.log('succès');
-      // };
+      test.addEventListener("change", function(event) {
+
+      if(event.test.checked){
+        testDeux.disabled = false;
+      }
+    })
+
+
+      

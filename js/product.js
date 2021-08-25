@@ -34,7 +34,7 @@ fetch(`http://localhost:3000/api/teddies/${searchId}`)
                         </select>
                         <div id="buttonsLayout">
                             <button class="btn btn-dark" type="button" id="command">Ajouter</button>
-                            <a href="basket.html" id="basketLink" class="btn btn-dark" type="button">Aller au panier</a>
+                            <a href="#" id="basketLink" class="btn btn-secondary" type="button">Aller au panier</a>
                         </div>
                 </div>
         </section>
@@ -42,15 +42,16 @@ fetch(`http://localhost:3000/api/teddies/${searchId}`)
 
     myContainer.innerHTML = productCart;
 
-    if(localStorage.getItem("basketShop") === null){
-      document.getElementsByClassName("navbar-nav")[0].style.display = "none";
-  }
+//-------------------------------------------------------------------------
+
+
 
     const optionValue = document.getElementById("colorSelection");
 
 //-------------------------------------------------------------------------
 
-      //Fonction créant les options de couleurs selon les données envoyées par l'API
+      //Fonction créant les options de couleurs selon les données envoyées par l'API.
+
       teddy.colors.forEach(function (choice) {
 
         const option = document.createElement("option");
@@ -60,7 +61,6 @@ fetch(`http://localhost:3000/api/teddies/${searchId}`)
       });
 
 //-------------------------------------------------------------------------
-
 
       //Boutons de gestion de la quantité d'un produit.
 
@@ -72,7 +72,6 @@ fetch(`http://localhost:3000/api/teddies/${searchId}`)
       counter.innerHTML = quantity;
 
 //-------------------------------------------------------------------------
-
 
       //Gestion de la quantité d'oursons.
 
@@ -93,9 +92,28 @@ fetch(`http://localhost:3000/api/teddies/${searchId}`)
 
 //-------------------------------------------------------------------------
 
-      //Gestion du localStorage à l'ajout du produit.
+    //Gestion de l'affichage de l'icone panier et du bouton Aller au panier.
 
-      let storageManagement;
+    document.getElementsByClassName("navbar-nav")[0].style.display = "none";
+
+    
+    let test = document.getElementById("basketLink");
+
+      if(localStorage.getItem("basketShop") !== null){
+
+        document.getElementsByClassName("navbar-nav")[0].style.display = "block";
+        test.classList.remove("btn-secondary");
+        test.classList.add("btn-dark");
+        test.setAttribute("href", "basket.html")
+      }
+
+// console.log(localStorage.getItem("basketShop").length);
+
+//-------------------------------------------------------------------------
+
+    //Gestion du localStorage à l'ajout du produit.
+
+    let storageManagement;
 
       getStorage = function getLocalStorage(){
 
@@ -124,6 +142,8 @@ fetch(`http://localhost:3000/api/teddies/${searchId}`)
             price: quantity * teddy.price,
             color: optionValue.value
           });
+        window.location.reload();
+
         }
         else{
           //Vérification si array contient le produit.
@@ -144,15 +164,6 @@ fetch(`http://localhost:3000/api/teddies/${searchId}`)
             });
           }
       }
-
-//-------------------------------------------------------------------------
-
-
-
-  let test = document.getElementById("basketLink");
-  console.log(test);
-  test.classList.remove("btn-dark");
-  test.classList.add("bg-secondary");
 
         localStorage.setItem("basketShop", JSON.stringify(storageManagement));
       }

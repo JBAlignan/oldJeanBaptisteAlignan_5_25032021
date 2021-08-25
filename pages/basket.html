@@ -46,11 +46,11 @@
 
         <section id="formSection">
 
-            <form method="post" class="row g-3 needs-validation" novalidate>
+            <form class="row g-3 needs-validation" onsubmit="validationCommand(event)">
 
                 <div class="col-md-4">
                   <label for="firstName" class="form-label">Pr&#233;nom</label>
-                  <input type="text" class="form-control" id="firstName" placeholder="Pr&#233;nom" required>
+                  <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Pr&#233;nom" required>
                   <div class="invalid-feedback">
                     Entre 2 et 25 caractères alphabétiques.
                   </div>
@@ -58,7 +58,7 @@
 
                 <div class="col-md-4">
                   <label for="name" class="form-label">Nom</label>
-                  <input type="text" class="form-control" id="name" placeholder="NOM" required>
+                  <input type="text" class="form-control" id="name" name="name" placeholder="NOM" required>
                   <div class="invalid-feedback">
                     Entre 2 et 25 caractères alphabétiques en majuscule.
                   </div>
@@ -68,7 +68,7 @@
                   <label for="mail" class="form-label">Courriel</label>
                   <div class="input-group has-validation">
                     <span class="input-group-text" id="inputGroupPrepend">@</span>
-                    <input type="email" class="form-control" id="mail" aria-describedby="inputGroupPrepend" required>
+                    <input type="email" class="form-control" id="mail" name="mail" aria-describedby="inputGroupPrepend" required>
                     <div class="invalid-feedback">
                       Format invalide.
                     </div>
@@ -77,7 +77,7 @@
 
                 <div class="col-md-6">
                   <label for="ville" class="form-label">Ville</label>
-                  <input type="text" class="form-control" id="ville" required>
+                  <input type="text" class="form-control" id="ville" name="ville" required>
                   <div class="invalid-feedback">
                     Ville inconnue.
                   </div>
@@ -85,7 +85,7 @@
 
                 <div class="col-md-3">
                     <label for="zip" class="form-label">Code Postal</label>
-                    <input type="text" class="form-control" id="zip" required>
+                    <input type="text" class="form-control" id="zip" name="zip" required>
                     <div class="invalid-feedback">
                       Code postal invalide.
                     </div>
@@ -93,14 +93,14 @@
 
                 <div class="col-md-3">
                   <label for="pays" class="form-label">Pays</label>
-                  <input type="text" class="form-control" id="pays" required>
+                  <input type="text" class="form-control" id="pays" name="pays" required>
                   <div class="invalid-feedback">
                     Pays inconnu.
                   </div>
                 </div>
                 
                 <div class="col-12">
-                  <a id="validationBtn" class="btn btn-dark" href="confirmation.html" role="button">Valider</a>
+                  <button onclick="validityFunction()" id="validationBtn" class="btn btn-dark" type="submit" disabled>Valider</button>
                 </div>
 
 
@@ -133,6 +133,9 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/js/basket.js"></script>
+<script src="/js/contact.js"></script>
+<script src="/js/order.js"></script>
+<script src="/js/emptyBasket.js"></script>
 
 
 </body>
