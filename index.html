@@ -19,7 +19,7 @@
     </head>
 
 
-<body>
+<body onload="loadProducts()">
 
     <header>
 
@@ -33,7 +33,7 @@
                 </button>
                 <ul class="navbar-nav">
                     <li>
-                        <a href="/pages/basket.html"><span class="fas fa-shopping-cart"></span></a>
+                        <a href="#" onclick="clickBasketIcon()" id="basketIcon"><span class="fas fa-shopping-cart"></span></a>
                     </li>
                 </ul>
             </div>
@@ -68,7 +68,7 @@
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="/js/main.js"></script>
+    <script src="/js/main.js" defer></script>
 
 
 </body>

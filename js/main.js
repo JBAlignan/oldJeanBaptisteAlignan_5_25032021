@@ -1,3 +1,8 @@
+
+//Fonction qui charge la liste des produit sur la page index.
+
+function loadProducts(){
+
 // Sélection de l'élément <main> dans le DOM
 // Création d'une variable vide de type string
 
@@ -14,7 +19,7 @@ fetch('http://localhost:3000/api/teddies')
 .then((teddies) => {
 
     teddies.forEach(function(teddy){
-        const teddyPrice = teddy.price / 100;
+        const teddyPrice = teddy.price / 100 + ".00";
         teddyCart += 
             `
             <article class="col-lg-6">
@@ -39,9 +44,20 @@ fetch('http://localhost:3000/api/teddies')
 
         mainContainer.innerHTML = teddyCart;
 
-        if(localStorage.getItem("basketShop") === null){
-            document.getElementsByClassName("navbar-nav")[0].style.display = "none";
-        }
     })
 .catch(error => console.log('error', error));
+}
 
+//-------------------------------------------------------------------------
+
+    //Gestion du clic sur l'icône Panier en header.
+
+let basketIcon = document.getElementById("basketIcon");
+let basketShop = JSON.parse(localStorage.getItem("basketShop"));
+function clickBasketIcon(){
+    if(basketShop === null || basketShop.length === 0){
+        window.alert("Votre panier est vide");
+    }
+    else{
+        basketIcon.setAttribute("href", "/pages/basket.html")
+    }};
