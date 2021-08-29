@@ -1,42 +1,22 @@
+//Calcul et insertion de la somme totale des produits.
 let productOrdered = JSON.parse(localStorage.getItem("basketShop"));
+let total = 0;
 
-// const map1 = productOrdered.map(productOrdered.price);
-// console.log(produ)
-
-
-
-console.log(productOrdered);
-
-productOrdered.forEach(function(teddiesOrdered){
-    let price = teddiesOrdered.price;
-    console.log(price);
+productOrdered.forEach(function (teddiesOrdered) {
+    let price = teddiesOrdered.price / 100;
+    total += price;
+    console.log(teddiesOrdered)
 });
 
-
-// let totalPrice = 0;
-// let test = 0;
-
-// productOrdered.forEach(function(teddiesOrdered){
-    
-//     totalPrice += (teddiesOrdered.price * teddiesOrdered.quantity)/productOrdered.length;
-//     test += totalPrice;
-//     console.log(teddiesOrdered);
-// });
-
-// console.log(totalPrice)
-// console.log(test);
+let priceDisplay = document.getElementById("commandPrice");
+priceDisplay.innerText = total + " " + "\u20AC";
 
 //-------------------------------------------------------------------------
 
-//Gestion du numéro de commande.
-
+//Récupération et insertion du numéro d'id de la commande.
 let commandNum = document.getElementById("commandNum");
-
 let stringRandomNum = localStorage.getItem("orderId");
-
 commandNum.innerText = stringRandomNum;
-
-console.log(stringRandomNum)
 
 //localStorage vidé après la commande validée.
 localStorage.clear();
